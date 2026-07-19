@@ -357,8 +357,9 @@ const transformFnResponse = ({ content, tool_call_id }, parts) => {
   try {
     response = JSON.parse(content);
   } catch (err) {
-    console.error("Error parsing function response content:", err);
-    throw new HttpError("Invalid function response: " + content, 400);
+    console.warn("Soft handling invalid JSON function response:", content);
+    // 解析失败时不抛出 400 错误，而是把纯文本包装进对象里容错
+    response = { output: content };
   }
   if (typeof response !== "object" || response === null || Array.isArray(response)) {
     response = { result: response };
