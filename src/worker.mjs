@@ -258,11 +258,11 @@ const safetySettings = harmCategory.map(category => ({
   threshold: "BLOCK_NONE",
 }));
 const fieldsMap = {
-  frequency_penalty: "frequencyPenalty",
+  //frequency_penalty: "frequencyPenalty",
   max_completion_tokens: "maxOutputTokens",
   max_tokens: "maxOutputTokens",
   n: "candidateCount", // not for streaming
-  presence_penalty: "presencePenalty",
+  //presence_penalty: "presencePenalty",
   seed: "seed",
   stop: "stopSequences",
   temperature: "temperature",
