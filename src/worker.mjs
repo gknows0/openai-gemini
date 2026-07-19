@@ -509,9 +509,14 @@ const transformTools = (req) => {
   if (req.tool_choice) {
     const allowed_function_names = req.tool_choice?.type === "function" ? [ req.tool_choice?.function?.name ] : undefined;
     if (allowed_function_names || typeof req.tool_choice === "string") {
-      tool_config = {
+      let mode = allowed_function_names ? "ANY" : req.tool_choice.toUpperCase();
+      // 兼容 OpenAI 的 REQUIRED 模式，将其映射为 Gemini 的 ANY 模式
+      if (mode === "REQUIRED") {
+        mode = "ANY";
+      }
+    tool_config = {
         function_calling_config: {
-          mode: allowed_function_names ? "ANY" : req.tool_choice.toUpperCase(),
+          mode,
           allowed_function_names
         }
       };
